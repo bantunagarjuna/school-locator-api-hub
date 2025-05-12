@@ -1,0 +1,47 @@
+
+<%- include('partials/header', {title: title}) %>
+
+<div class="px-4 py-5 my-5 text-center">
+  <h1 class="display-5 fw-bold text-body-emphasis">School Locator Application</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Find schools near you or add new schools to our database.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="/find-schools" class="btn btn-primary btn-lg px-4 gap-3">Find Schools</a>
+      <a href="/add-school" class="btn btn-outline-secondary btn-lg px-4">Add School</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Find Nearby Schools</h5>
+          <p class="card-text">Enter your coordinates to find schools sorted by proximity.</p>
+          <a href="/find-schools" class="btn btn-primary">Find Schools</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add a School</h5>
+          <p class="card-text">Contribute to our database by adding a new school.</p>
+          <a href="/add-school" class="btn btn-primary">Add School</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">API Documentation</h5>
+          <p class="card-text">Learn how to use our API in your applications.</p>
+          <a href="/api-docs" class="btn btn-primary">View Docs</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

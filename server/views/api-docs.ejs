@@ -1,0 +1,148 @@
+
+<%- include('partials/header', {title: title}) %>
+
+<h1 class="mb-4">API Documentation</h1>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">API Endpoints</h2>
+    <p class="card-text">The School Locator API provides the following endpoints:</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">GET /api/schools</h3>
+  </div>
+  <div class="card-body">
+    <h4>Description</h4>
+    <p>Returns a list of schools sorted by distance from specified coordinates.</p>
+    
+    <h4>Query Parameters</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Type</th>
+          <th>Required</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>latitude</td>
+          <td>number</td>
+          <td>Yes</td>
+          <td>Latitude coordinate (-90 to 90)</td>
+        </tr>
+        <tr>
+          <td>longitude</td>
+          <td>number</td>
+          <td>Yes</td>
+          <td>Longitude coordinate (-180 to 180)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Example Request</h4>
+    <pre class="bg-light p-3"><code>GET /api/schools?latitude=39.8026&longitude=-89.6437</code></pre>
+    
+    <h4>Example Response</h4>
+    <pre class="bg-light p-3"><code>[
+  {
+    "id": 1,
+    "name": "Central High School",
+    "address": "123 Education Ave, Springfield, IL 62701",
+    "latitude": 39.8026,
+    "longitude": -89.6437,
+    "distance": "0.00"
+  },
+  {
+    "id": 3,
+    "name": "Southview Academy",
+    "address": "789 Knowledge St, Springfield, IL 62703",
+    "latitude": 39.7906,
+    "longitude": -89.6334,
+    "distance": "1.58"
+  },
+  {
+    "id": 2,
+    "name": "Westside Elementary",
+    "address": "456 Learning Blvd, Springfield, IL 62702",
+    "latitude": 39.8107,
+    "longitude": -89.6589,
+    "distance": "1.76"
+  }
+]</code></pre>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h3 class="mb-0">POST /api/schools</h3>
+  </div>
+  <div class="card-body">
+    <h4>Description</h4>
+    <p>Adds a new school to the database.</p>
+    
+    <h4>Request Body</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Type</th>
+          <th>Required</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>name</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td>Name of the school</td>
+        </tr>
+        <tr>
+          <td>address</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td>Physical address of the school</td>
+        </tr>
+        <tr>
+          <td>latitude</td>
+          <td>number</td>
+          <td>Yes</td>
+          <td>Latitude coordinate (-90 to 90)</td>
+        </tr>
+        <tr>
+          <td>longitude</td>
+          <td>number</td>
+          <td>Yes</td>
+          <td>Longitude coordinate (-180 to 180)</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h4>Example Request</h4>
+    <pre class="bg-light p-3"><code>POST /api/schools
+Content-Type: application/json
+
+{
+  "name": "Northside Middle School",
+  "address": "100 Scholar Drive, Springfield, IL 62704",
+  "latitude": 39.8145,
+  "longitude": -89.6420
+}</code></pre>
+    
+    <h4>Example Response</h4>
+    <pre class="bg-light p-3"><code>{
+  "id": 4,
+  "name": "Northside Middle School",
+  "address": "100 Scholar Drive, Springfield, IL 62704",
+  "latitude": 39.8145,
+  "longitude": -89.6420
+}</code></pre>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

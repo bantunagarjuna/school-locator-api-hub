@@ -1,0 +1,70 @@
+
+<%- include('partials/header', {title: title}) %>
+
+<h1 class="mb-4">Add a New School</h1>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-body">
+        <% if (typeof success !== 'undefined' && success === 'true') { %>
+          <div class="alert alert-success" role="alert">
+            School successfully added!
+          </div>
+        <% } %>
+        
+        <% if (typeof error !== 'undefined') { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error %>
+          </div>
+        <% } %>
+        
+        <form action="/add-school" method="POST">
+          <div class="mb-3">
+            <label for="name" class="form-label">School Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= typeof formData !== 'undefined' ? formData.name : '' %>" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Address</label>
+            <input type="text" class="form-control" id="address" name="address" value="<%= typeof formData !== 'undefined' ? formData.address : '' %>" required>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="latitude" class="form-label">Latitude</label>
+              <input type="text" class="form-control" id="latitude" name="latitude" value="<%= typeof formData !== 'undefined' ? formData.latitude : '' %>" placeholder="-90 to 90" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="longitude" class="form-label">Longitude</label>
+              <input type="text" class="form-control" id="longitude" name="longitude" value="<%= typeof formData !== 'undefined' ? formData.longitude : '' %>" placeholder="-180 to 180" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Add School</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">How to Find Coordinates</h5>
+        <p class="card-text">
+          You can find the latitude and longitude of a location:
+        </p>
+        <ol>
+          <li>Go to Google Maps</li>
+          <li>Right-click on the location</li>
+          <li>Select "What's here?"</li>
+          <li>The coordinates will appear in the info box</li>
+        </ol>
+        <p>
+          Example:<br>
+          Latitude: 40.7128<br>
+          Longitude: -74.0060
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

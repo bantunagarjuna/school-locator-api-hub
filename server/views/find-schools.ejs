@@ -1,0 +1,95 @@
+
+<%- include('partials/header', {title: title}) %>
+
+<h1 class="mb-4">Find Nearby Schools</h1>
+
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Enter Your Coordinates</h5>
+        
+        <% if (typeof error !== 'undefined') { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error %>
+          </div>
+        <% } %>
+        
+        <form action="/find-schools" method="POST">
+          <div class="mb-3">
+            <label for="latitude" class="form-label">Latitude</label>
+            <input type="text" class="form-control" id="latitude" name="latitude" value="<%= latitude %>" placeholder="-90 to 90" required>
+          </div>
+          <div class="mb-3">
+            <label for="longitude" class="form-label">Longitude</label>
+            <input type="text" class="form-control" id="longitude" name="longitude" value="<%= longitude %>" placeholder="-180 to 180" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Find Schools</button>
+          <button type="button" id="useCurrentLocation" class="btn btn-secondary">Use My Location</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-6">
+    <% if (schools && schools.length > 0) { %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Schools Near You</h5>
+          <p class="card-text text-muted mb-3">Sorted by distance from your location</p>
+          
+          <div class="list-group">
+            <% schools.forEach(school => { %>
+              <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1"><%= school.name %></h5>
+                  <small><%= school.distance %> km</small>
+                </div>
+                <p class="mb-1"><%= school.address %></p>
+                <small class="text-muted">
+                  Coordinates: <%= school.latitude %>, <%= school.longitude %>
+                </small>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    <% } else if (latitude && longitude) { %>
+      <div class="alert alert-info">No schools found near your location.</div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const useCurrentLocationBtn = document.getElementById('useCurrentLocation');
+  const latitudeInput = document.getElementById('latitude');
+  const longitudeInput = document.getElementById('longitude');
+  
+  useCurrentLocationBtn.addEventListener('click', function() {
+    if (navigator.geolocation) {
+      useCurrentLocationBtn.disabled = true;
+      useCurrentLocationBtn.textContent = 'Getting location...';
+      
+      navigator.geolocation.getCurrentPosition(
+        function(position) {
+          latitudeInput.value = position.coords.latitude.toFixed(6);
+          longitudeInput.value = position.coords.longitude.toFixed(6);
+          
+          useCurrentLocationBtn.disabled = false;
+          useCurrentLocationBtn.textContent = 'Use My Location';
+        },
+        function(error) {
+          alert('Error getting location: ' + error.message);
+          useCurrentLocationBtn.disabled = false;
+          useCurrentLocationBtn.textContent = 'Use My Location';
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by your browser.');
+    }
+  });
+});
+</script>
