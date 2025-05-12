@@ -11,6 +11,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { School } from 'lucide-react';
 import { addSchool } from '@/services/api';
+import { SchoolInput } from '@/types/school';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'School name must be at least 2 characters.' }),
@@ -42,7 +43,15 @@ const AddSchool = () => {
     setIsSubmitting(true);
     
     try {
-      await addSchool(data);
+      // Explicitly cast the form data as SchoolInput type to ensure it matches the expected type
+      const schoolData: SchoolInput = {
+        name: data.name,
+        address: data.address,
+        latitude: data.latitude,
+        longitude: data.longitude
+      };
+      
+      await addSchool(schoolData);
       toast.success("School added successfully!");
       form.reset();
     } catch (error) {
